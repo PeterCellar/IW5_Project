@@ -1,0 +1,36 @@
+﻿@page "/orders/{Id:guid}"
+@inherits Delivery.Web.App.Pages.PageBase
+
+<h1>Order Detail</h1>
+
+@if(Order == null)
+{
+    return;
+}
+
+<div class="row">
+    <div class="col-2">
+        <img class="rounded mx-auto d-block w-100" src="@Order.Restaurant.LogoUrl">
+    </div>
+    <div class="col-6">
+        <h3>@Order.Restaurant.Name</h3>
+        <h5 class="card-title">@Order.Note</h5>
+        <table>
+            <tr class="card-text"><td>Delivery time:</td><td>@Order.DeliveryTime</td></tr>
+            <tr class="card-text"><td>State:</td><td>@Order.State</td></tr>
+            <tr class="card-text"><td>Total price:</td><td>@Order.TotalPrice €</td></tr>
+        </table>
+    </div>
+</div>
+
+<br/>
+<div class="row">
+    <NavLink class="nav-link" href="@($"orders/{Order.Id}/edit")">
+        <button type="button" class="btn btn-primary btn-warning">Edit</button>
+    </NavLink>
+</div>
+
+<div class="container">
+    <br/>
+    <DishAmountList DishAmounts="@Order.DishAmounts" />
+</div>

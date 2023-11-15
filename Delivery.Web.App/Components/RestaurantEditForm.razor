@@ -1,0 +1,81 @@
+﻿@namespace Delivery.Web.App
+@inherits Delivery.Web.App.Pages.PageBase
+
+<EditForm Model="@Data">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label class="w-100">
+            Name
+            <InputText @bind-Value="@Data.Name" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Name)"/>
+            </small>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            Description
+            <InputTextArea @bind-Value="@Data.Description" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Description)"/>
+            </small>
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label class="w-100">
+            Address
+            <InputText @bind-Value="@Data.Address" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Address)"/>
+            </small>
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label class="w-100">
+            Latitude
+            <InputNumber @bind-Value="@Data.Latitude" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Latitude)"/>
+            </small>
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label class="w-100">
+            Longitude
+            <InputNumber @bind-Value="@Data.Longitude" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Longitude)"/>
+            </small>
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label class="w-100">
+            LogoUrl
+            <InputText @bind-Value="@Data.LogoUrl" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.LogoUrl)"/>
+            </small>
+        </label>
+        <img src="@Data.LogoUrl" height="100px" alt=".."/>
+        <small class="form-text text-danger">
+            <ValidationMessage For="@(() => Data.LogoUrl)"/>
+        </small>
+    </div>
+
+    <button type="submit" class="btn btn-success" @onclick="@Save">
+        Save
+    </button>
+
+    @if (Id != Guid.Empty)
+    {
+        <button @onclick="@Delete" class="btn btn-danger ml-1">
+            Delete
+        </button>
+    }
+</EditForm>

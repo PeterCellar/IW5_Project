@@ -1,0 +1,22 @@
+{
+  "name": "Delivery - your online food delivery",
+  "short_name": "Delivery",
+  "display": "standalone",
+  "theme_color": "#04173D",
+  "background_color": "#FFFFFF",
+  "permissions": ["storage"],
+  "scope": "/",
+  "start_url": "/",
+  "offline_enabled": true,
+  "orientation": "portrait",
+  "categories": ["lifestyle", "food"],
+  "prefer_related_applications": false,
+  "icons": [],
+  "shortcuts": [
+    {
+      "name": "Dishes",
+      "url": "/dishes"
+    }
+  ],
+  "screenshots": []
+}

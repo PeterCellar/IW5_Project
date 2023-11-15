@@ -1,0 +1,41 @@
+﻿@page "/restaurants"
+@namespace Delivery.Web.App.Pages
+@inherits PageBase
+@layout ListLayout
+
+<PageTitle>Restaurants List</PageTitle>
+
+<h1 class="mb-4">Restaurants List</h1>
+
+<div class="row">
+    <div class="col-md">
+        <div class="bg-sec h-100 rounded">
+            @if (Restaurants.Count != 0)
+            {
+                @foreach (var restaurant in Restaurants)
+                {
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row">
+                            <div class="col-md-4 d-flex align-items-center">
+                                <img src="@restaurant.LogoUrl" alt="@restaurant.Name" class="img-fluid rounded-start">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@restaurant.Name</h5>
+                                        <p class="card-text">@restaurant.Description</p>
+                                        <a href="@($"restaurants/{restaurant.Id}")" class="btn btn-primary">See detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-md">
+        <h3>Create restaurant</h3>
+        <RestaurantEditForm OnModification="@LoadData" />
+    </div>
+</div>

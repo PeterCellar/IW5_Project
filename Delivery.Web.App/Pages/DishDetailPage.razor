@@ -1,0 +1,43 @@
+﻿@page "/dishes/{Id:guid}"
+@inherits Delivery.Web.App.Pages.PageBase
+
+<PageTitle>Dish Detail</PageTitle>
+@if (Dish.Id == Guid.Empty)
+{
+    <p>NULL</p>
+}
+
+<h1>Dish Detail</h1>
+<div class="row">
+    <div class="col-2">
+        <img class="rounded mx-auto d-block w-100" src="@Dish.ImageUrl">
+    </div>
+    <div class="col-6">
+        <h3>@Dish.Name</h3>
+        <p>@Dish.Description</p>
+        <p>Price: @Dish.Price €</p>
+    </div>
+</div>
+
+<br/>
+<NavLink class="nav-link" href="@($"dishes/{Id}/edit")">
+    <button type="button" class="btn btn-warning">Edit</button>
+</NavLink>
+
+<br/>
+<h2>Dish allergens</h2>
+<div class="row">
+    <div class="col-md">
+        @if (Dish.Allergens.Count != 0)
+        {
+            foreach (var allergen in Dish.Allergens)
+            {
+                <p>@allergen</p>
+            }
+        }
+        else
+        {
+            <p>This dish contains no allergens!</p>
+        }
+    </div>
+</div>

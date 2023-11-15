@@ -1,0 +1,27 @@
+trigger:
+  - master
+
+variables:
+  buildConfiguration: "Release"
+  dotNetFramework: "net7.0"
+  dotNetVersion: "7.0.x"
+  targetRuntime: "win-x86"
+
+pool:
+  vmImage: windows-latest
+
+steps:
+  - template: build-API.yml
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: "publish"
+      publishWebProjects: false
+      projects: "**/Delivery.Api.App.csproj"
+      arguments: "--configuration $(BuildConfiguration) --framework $(dotNetFramework) --output $(Build.ArtifactStagingDirectory)/api --self-contained true -r $(targetRuntime)"
+      modifyOutputPath: false
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)/api"
+      ArtifactName: "API"
+      publishLocation: "Container"

@@ -1,0 +1,20 @@
+trigger:
+  branches:
+    include:
+      - "*"
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  buildConfiguration: "Release"
+  dotNetFramework: "net7.0"
+  dotNetVersion: "7.0.x"
+  targetRuntime: "win-x64"
+
+steps:
+  - template: build-API.yml
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: "test"
+      projects: "**/*Tests*.csproj"

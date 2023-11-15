@@ -1,0 +1,33 @@
+@using Delivery.Common.Enums
+@namespace Delivery.Web.App
+@inherits Delivery.Web.App.Pages.PageBase
+
+<div class="col-md ">
+    <div class="input-group ">
+        <div class="form-outline d-flex flex-row">
+            <InputText @bind-Value="@FilterString" @oninput="@OnInput" class="form-control"/>
+        </div>
+    </div>
+    @if(ShowResults)
+    {
+        <div class="position-absolute d-flex flex-column bg-light" style="z-index: 2000;">
+            @foreach (var filterItem in FilterList)
+            {
+                <div class="row m-0">
+                    @if(filterItem.Image != null) {<img src="@filterItem.Image" style="max-width: 50px; max-height: 50px;"/>}
+                    <div class="d-flex flex-column p-3">
+                        @if(filterItem.Type == FilterType.Dish)
+                        {
+                            <a href='@($"dishes/{filterItem.Id}")' @onclick="@Hide">@filterItem.Name</a>
+                        }
+                        else if(filterItem.Type == FilterType.Restaurant)
+                        {
+                            <a href='@($"restaurants/{filterItem.Id}")' @onclick="@Hide">@filterItem.Name</a>
+                        }
+                        <small>@filterItem.Description</small>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

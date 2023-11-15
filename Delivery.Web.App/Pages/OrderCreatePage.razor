@@ -1,0 +1,6 @@
+﻿@page "/orders/create/{RestaurantId:guid}"
+@inherits Delivery.Web.App.Pages.PageBase
+
+<h1 class="mb-4">Order Edit</h1>
+
+<OrderEditForm RestaurantId="@RestaurantId" OnModification="NavigateBack" />

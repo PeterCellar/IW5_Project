@@ -1,0 +1,23 @@
+@namespace Delivery.Web.App
+@inherits Delivery.Web.App.Pages.PageBase
+
+<div class="col-md">
+    <h3>Orders</h3>
+    <div class="bg-sec rounded">
+        @foreach (var order in Orders)
+        {
+            <div class="card my-2">
+                <div class="card-body">
+                    <h5 class="card-title">@order.Note</h5>
+                    <table>
+                        <tr><td><p class="card-text">Delivery time: </p></td><td><p class="card-text">@order.DeliveryTime</p></td></tr>
+                        <tr><td><p class="card-text">State: </p></td><td><p class="card-text">@order.State</p></td></tr>
+                        <tr><td><p class="card-text">Total price: </p></td><td><p class="card-text">@order.TotalPrice €</p></td></tr>
+                    </table>
+                    <a href="@($"orders/{order.Id}")" class="btn btn-primary">See detail</a>
+                    <a href="@($"orders/{order.Id}/edit")" class="btn btn-warning">Edit</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

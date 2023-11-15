@@ -1,0 +1,127 @@
+﻿@namespace Delivery.Web.App
+@using Delivery.Common.Enums
+@inherits Delivery.Web.App.Pages.PageBase
+
+<EditForm Model="@Data">
+    <DataAnnotationsValidator />
+    
+    <div class="form-group">
+        <label class="w-100">
+           Address
+           <InputText @bind-Value="@Data.Address" class="form-control" />
+           <small class="form-text text-danger">
+               <ValidationMessage For="@(() => Data.Address)" />
+           </small>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100">
+            Note
+            <InputTextArea @bind-Value="@Data.Note" class="form-control" />
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Note)" />
+            </small>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label class="w-100 font-weight-bold mb-0" for="durationInput">
+            Delivery time
+        </label>
+        <div class="input-group">
+            <InputNumber min="0" @bind-Value="DurationHours" class="form-control" id="durationInput"/>
+            <div class="p-2">:</div>
+            <InputNumber min="0" @bind-Value="DurationMinutes" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.DeliveryTime)"/>
+            </small>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label class="w-100">
+            State
+            <InputSelect @bind-Value="Data.State" class="form-control">
+                @foreach (var state in Enum.GetValues(typeof(OrderState)))
+                {
+                    <option value="@state">@state</option>
+                }
+            </InputSelect>
+        </label>
+    </div>
+    
+    <hr/>
+    
+    <div class="p-3">
+        <div class="bg-sec p-3 rounded">
+            <h3>Add dishes</h3>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <InputSelect @bind-Value="@SelectedDishId" class="form-control">
+                        <option value="@Guid.Empty" selected>----</option>
+                        @foreach (var dish in RestaurantDishes)
+                        {   
+                            <option value="@dish.Id">@dish.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+                <InputNumber min="0" @bind-Value="NewDishModel.Amount" class="form-control" />
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-success" @onclick="@AddDish">
+                        AddDish
+                    </button>
+                </div>
+            </div>
+            <hr/>
+            <div class="container">
+                @{ 
+                    decimal totalPrice;
+                    totalPrice = 0; 
+                }
+                @foreach (var dishAmount in Data.DishAmounts)
+                {
+                    var dish = RestaurantDishes.Where(i => i.Id == dishAmount.DishId).FirstOrDefault();
+                    if (dish != null)
+                    {
+                        var totalDishPrice = dish.Price * dishAmount.Amount;
+                        totalPrice += totalDishPrice;
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <img src="@dish.ImageUrl" class="img-fluid rounded-start" alt="@dish.Name">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@dish.Name</h5>
+                                        <table>
+                                            <tr class="card-text"><td>Amount:</td><td>@dishAmount.Amount</td></tr>
+                                            <tr class="card-text"><td>Dish price:</td><td>@dish.Price €</td></tr>
+                                            <tr class="card-text"><td>Total price:</td><td>@(totalDishPrice) €</td></tr>
+                                        </table>
+                                    <button class="btn btn-danger btn-sm" type="button" @onclick="() => DeleteDish(dishAmount)">DeleteDish</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <h5>Total price is @totalPrice €</h5>
+
+    <button type="submit" class="btn btn-success" @onclick="@Save">
+        Save
+    </button>
+
+    @if (Id != Guid.Empty)
+    {
+        <button @onclick="@Delete" class="btn btn-danger ml-1">
+            Delete
+        </button>
+    }
+</EditForm>

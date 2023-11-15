@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Delivery.Common.BL\Delivery.Common.BL.csproj" />
+    <ProjectReference Include="..\Delivery.Web.DAL\Delivery.Web.DAL.csproj" />
+    <ProjectReference Include="..\Delivery.Common.Models\Delivery.Common.Models.csproj" />
+  </ItemGroup>
+
+</Project>

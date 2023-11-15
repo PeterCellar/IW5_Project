@@ -1,0 +1,29 @@
+﻿@namespace Delivery.Web.App
+@inherits Delivery.Web.App.Pages.PageBase
+
+<div class="col-md">
+    <h3>Dishes</h3>
+    <div class="bg-sec h-100 rounded">
+        @foreach (var dish in Dishes)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <img src="@dish.ImageUrl" alt="@dish.Name" class="img-fluid rounded-start">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@dish.Name</h5>
+                            <table>
+                                <tr><td><p class="card-text">Description: </p></td><td><p class="card-text">@dish.Description</p></td></tr>
+                                <tr><td><p class="card-text">Price: </p></td><td><p class="card-text">@dish.Price €</p></td></tr>
+                            </table>
+                            <a href="@($"dishes/{dish.Id}")" class="btn btn-primary">See detail</a>
+                            <a href="@($"dishes/{dish.Id}/edit")" class="btn btn-warning">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

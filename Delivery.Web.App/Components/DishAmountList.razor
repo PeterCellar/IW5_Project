@@ -1,0 +1,26 @@
+@namespace Delivery.Web.App
+@inherits Delivery.Web.App.Pages.PageBase
+
+<div>
+    <h3>Order dishes</h3>
+    @foreach (var dishAmount in DishAmounts)
+    {
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-items-center">
+                    <img src="@dishAmount.Dish.ImageUrl" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@dishAmount.Dish.Name</h5>
+                        <table>
+                            <tr class="card-text"><td>Amount:</td><td>@dishAmount.Amount</td></tr>
+                            <tr class="card-text"><td>Dish price:</td><td>@dishAmount.Dish.Price €</td></tr>
+                            <tr class="card-text"><td>Total price:</td><td>@(dishAmount.Dish.Price * dishAmount.Amount) €</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,52 @@
+﻿@page "/restaurants/{Id:guid}"
+@inherits Delivery.Web.App.Pages.PageBase
+
+<PageTitle>Restaurant Detail</PageTitle>
+
+<h1>Restaurant Detail</h1>
+
+<div class="row">
+    <div class="col-2">
+        <img class="rounded mx-auto d-block w-100" src="@Restaurant.LogoUrl">
+    </div>
+    <div class="col-6">
+        <h3>@Restaurant.Name</h3>
+        <p>@Restaurant.Address [@Restaurant.Latitude, @Restaurant.Longitude]</p>
+        <p>Revenue: @Restaurant.Revenue €</p>
+        <p>@Restaurant.Description</p>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <NavLink class="nav-link" href="@($"restaurants/{Id}/edit")">
+        <button type="button" class="btn btn-primary btn-warning">Edit</button>
+    </NavLink>
+    <NavLink class="nav-link" href="@($"dishes/create/{Id}")">
+        <button type="button" class="btn btn-primary">Create dish</button>
+    </NavLink>
+    <NavLink class="nav-link" href="@($"orders/create/{Id}")">
+        <button type="button" class="btn btn-primary">Create order</button>
+    </NavLink>
+</div>
+
+<br/>
+
+<div class="row">
+    @if (Restaurant.Dishes.Count != 0)
+    {
+        <DishList Dishes="@Restaurant.Dishes"/>
+    }
+    else
+    {
+        <p>This restaurant does not offer any dishes!</p>
+    }
+
+    @if (Restaurant.Orders.Count != 0)
+    {
+        <OrderList Orders="@Restaurant.Orders"/>
+    }
+    else
+    {
+        <p>This restaurant has no orders!</p>
+    }
+</div>

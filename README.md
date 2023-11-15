@@ -2,6 +2,8 @@
 
 Aplikácia slúži ako jednoduchá aplikácia simulujúca webovú stránku pre donášku jedál.
 
+Aplikácia bola vytvorená ako školský projekt na FIT VUT mnou a ďalšími dvomi študentmi.
+
 ---
 
 ## Dáta
